@@ -77,7 +77,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
 
       {/* L - Grid Levels */}
       <div
-        className={`card left ${active === "L" ? "active" : ""}`}
+        className={`card ${active === "L" ? "active" : ""}`}
         onClick={() => setActive((p) => (p === "L" ? null : "L"))}
         role="button"
         aria-label="Choose grid size"
@@ -110,13 +110,21 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
       {/* I - Settings */}
       <div
         className={`card left ${active === "I" ? "active" : ""}`}
-        onClick={() => setActive((p) => (p === "I" ? null : "I"))}
+        onClick={(e) => {
+          // Only toggle if clicking outside form elements
+          if (e.target === e.currentTarget || e.target.closest('.flipper') === e.currentTarget.querySelector('.flipper')) {
+            setActive((p) => (p === "I" ? null : "I"));
+          }
+        }}
         role="button"
         aria-label="Game settings"
       >
         <div className="flipper">
           <div className="f c3">{logoLetters[2]}</div>
-          <div className="b contentbox instructions">
+          <div 
+            className="b contentbox instructions"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="padded">
               <h2>Settings</h2>
               
@@ -129,6 +137,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
                   onChange={(e) => onWinUrlChange(e.target.value)}
                   placeholder="https://example.com"
                   className="setting-input"
+                  onClick={(e) => e.stopPropagation()}
                 />
                 <p className="setting-desc">URL to redirect to when you win</p>
               </div>
@@ -143,6 +152,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
                   value={gameTime}
                   onChange={(e) => onGameTimeChange(parseInt(e.target.value) || 60)}
                   className="setting-input"
+                  onClick={(e) => e.stopPropagation()}
                 />
                 <p className="setting-desc">Time limit for the game</p>
               </div>

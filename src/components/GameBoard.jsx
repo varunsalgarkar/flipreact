@@ -25,12 +25,23 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
   // Build symbols for the grid
   const symbols = useMemo(() => {
     const pairsNeeded = level / 2;
-    const base = Array.from({ length: pairsNeeded }, (_, i) => {
+    // For odd numbers like 9, we need one extra single card
+    const hasOddCard = level % 2 === 1;
+    const base = Array.from({ length: Math.floor(pairsNeeded) }, (_, i) => {
       let code = i;
       if (code < 10) return `0${code}`;
       return `${code}`;
     });
-    return shuffle([...base, ...base]);
+    
+    let allCards = [...base, ...base]; // pairs
+    
+    // Add one extra card for odd grids
+    if (hasOddCard) {
+      const extraCode = base.length < 10 ? `0${base.length}` : `${base.length}`;
+      allCards.push(extraCode);
+    }
+    
+    return shuffle(allCards);
   }, [level]);
 
   // Initialize cards once

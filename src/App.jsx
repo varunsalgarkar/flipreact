@@ -33,16 +33,22 @@ export default function App() {
   return (
     <div id="app">
       {screen === "start" && (
-        <Logo 
-          onPlay={handleStart} 
-          lastResult={null}
-          selectedGrid={selectedGrid}
-          onGridSelect={setSelectedGrid}
-          winUrl={winUrl}
-          onWinUrlChange={setWinUrl}
-          gameTime={gameTime}
-          onGameTimeChange={setGameTime}
-        />
+        <>
+          <div className="game-title">
+            <h1>Flip the Twin</h1>
+            <h2>A CSR Initiative</h2>
+          </div>
+          <Logo 
+            onPlay={handleStart} 
+            lastResult={null}
+            selectedGrid={selectedGrid}
+            onGridSelect={setSelectedGrid}
+            winUrl={winUrl}
+            onWinUrlChange={setWinUrl}
+            gameTime={gameTime}
+            onGameTimeChange={setGameTime}
+          />
+        </>
       )}
 
       {screen === "playing" && level && (
@@ -55,28 +61,40 @@ export default function App() {
       )}
 
       {screen === "won" && (
-        <Logo 
-          onPlay={handleStart} 
-          lastResult="nice"
-          selectedGrid={selectedGrid}
-          onGridSelect={setSelectedGrid}
-          winUrl={winUrl}
-          onWinUrlChange={setWinUrl}
-          gameTime={gameTime}
-          onGameTimeChange={setGameTime}
-        />
+        <>
+          <div className="game-title">
+            <h1>Flip the Twin</h1>
+            <h2>A CSR Initiative</h2>
+          </div>
+          <Logo 
+            onPlay={handleStart} 
+            lastResult="nice"
+            selectedGrid={selectedGrid}
+            onGridSelect={setSelectedGrid}
+            winUrl={winUrl}
+            onWinUrlChange={setWinUrl}
+            gameTime={gameTime}
+            onGameTimeChange={setGameTime}
+          />
+        </>
       )}
       {screen === "lost" && (
-        <Logo 
-          onPlay={handleStart} 
-          lastResult="fail"
-          selectedGrid={selectedGrid}
-          onGridSelect={setSelectedGrid}
-          winUrl={winUrl}
-          onWinUrlChange={setWinUrl}
-          gameTime={gameTime}
-          onGameTimeChange={setGameTime}
-        />
+        <>
+          <div className="game-title">
+            <h1>Flip the Twin</h1>
+            <h2>A CSR Initiative</h2>
+          </div>
+          <Logo 
+            onPlay={handleStart} 
+            lastResult="fail"
+            selectedGrid={selectedGrid}
+            onGridSelect={setSelectedGrid}
+            winUrl={winUrl}
+            onWinUrlChange={setWinUrl}
+            gameTime={gameTime}
+            onGameTimeChange={setGameTime}
+          />
+        </>
       )}
     </div>
   );
