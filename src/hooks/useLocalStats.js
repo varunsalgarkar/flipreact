@@ -4,9 +4,9 @@ const DEFAULTS = {
   flip_won: 0,
   flip_lost: 0,
   flip_abandoned: 0,
-  flip_3x3: "-:-",
   flip_4x4: "-:-",
-  flip_5x5: "-:-",
+  flip_6x6: "-:-",
+  flip_8x8: "-:-",
   flip_matched: 0,
   flip_wrong: 0,
 };
@@ -29,9 +29,9 @@ export function useLocalStats() {
       flip_won: +get("flip_won"),
       flip_lost: +get("flip_lost"),
       flip_abandoned: +get("flip_abandoned"),
-      flip_3x3: get("flip_3x3"),
       flip_4x4: get("flip_4x4"),
-      flip_5x5: get("flip_5x5"),
+      flip_6x6: get("flip_6x6"),
+      flip_8x8: get("flip_8x8"),
       flip_matched: +get("flip_matched"),
       flip_wrong: +get("flip_wrong"),
     };

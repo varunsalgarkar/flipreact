@@ -5,9 +5,9 @@ import { shuffle } from "../utils/shuffle.js";
 import { useLocalStats } from "../hooks/useLocalStats.js";
 
 const GRID_CONFIG = {
-  9:  { key: "3x3", mult: 3 },
   16: { key: "4x4", mult: 4 },
-  25: { key: "5x5", mult: 5 },
+  36: { key: "6x6", mult: 6 },
+  64: { key: "8x8", mult: 8 },
 };
 
 export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {

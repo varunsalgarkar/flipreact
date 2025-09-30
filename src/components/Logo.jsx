@@ -3,9 +3,9 @@ import styles from "../styles/Logo.module.css";
 import { useLocalStats } from "../hooks/useLocalStats.js";
 
 const GRID_SIZES = [
-  { label: "3x3", value: 9 },
   { label: "4x4", value: 16 },
-  { label: "5x5", value: 25 },
+  { label: "6x6", value: 36 },
+  { label: "8x8", value: 64 },
 ];
 
 export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, winUrl, onWinUrlChange, gameTime, onGameTimeChange }) {

@@ -1,19 +1,19 @@
 .backBtn{
   position:absolute;
-  top:10px;
-  left:10px;
+  top: var(--spacing-sm, 10px);
+  left: var(--spacing-sm, 10px);
   z-index:2;
   background:rgba(0,0,0,.8);
-  color:#fff;
-  border:1px solid #0f0;
-  padding:6px 10px;
+  color: var(--text-color, #fff);
+  border: 1px solid var(--primary-color, #0f0);
+  padding: var(--spacing-xs, 6px) var(--spacing-sm, 10px);
   border-radius:4px;
   cursor:pointer;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-family, 'Open Sans', sans-serif);
+  font-size: var(--back-btn-size, 10px);
 }
 
 .backBtn:hover {
-  background: rgba(0,255,0,.2);
+  background: var(--primary-hover, rgba(0,255,0,.2));
 }
 
-/* Grid-specific styles */
