@@ -10,7 +10,7 @@ const GRID_CONFIG = {
   25: { key: "5x5", mult: 5 },
 };
 
-export default function GameBoard({ level, onEnd, onBackToMenu }) {
+export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
   const { recordAbandoned, bumpFlip, recordBestTime } = useLocalStats();
   const [paused, setPaused] = useState(false);
   const [cards, setCards] = useState([]);
@@ -19,7 +19,7 @@ export default function GameBoard({ level, onEnd, onBackToMenu }) {
   const [lost, setLost] = useState(false);
 
   const startTs = useRef(performance.now());
-  const timerMs = useMemo(() => 1000 * level * GRID_CONFIG[level].mult, [level]);
+  const timerMs = useMemo(() => gameTime * 1000, [gameTime]);
   const gridKey = GRID_CONFIG[level].key;
 
   // Build symbols for the grid

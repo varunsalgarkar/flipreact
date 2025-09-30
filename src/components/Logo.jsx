@@ -8,7 +8,7 @@ const GRID_SIZES = [
   { label: "5x5", value: 25 },
 ];
 
-export default function Logo({ onPlay, lastResult }) {
+export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, winUrl, onWinUrlChange, gameTime, onGameTimeChange }) {
   const [active, setActive] = useState(null); // "F" | "L" | "I" | "P" | null
   const { stats, initIfEmpty, bumpGameTotals, toTime } = useLocalStats();
 
@@ -85,75 +85,109 @@ export default function Logo({ onPlay, lastResult }) {
         <div className="flipper">
           <div className="f c2">{logoLetters[1]}</div>
           <div className="b contentbox levels">
-            {GRID_SIZES.map((grid) => (
-              <a
-                key={grid.value}
-                href="#"
-                className="play"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPlay(grid.value);
-                }}
-                data-level={grid.value}
-              >
-                {grid.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* I - Instructions */}
-      <div
-        className={`card left ${active === "I" ? "active" : ""}`}
-        onClick={() => setActive((p) => (p === "I" ? null : "I"))}
-        role="button"
-        aria-label="Show instructions"
-      >
-        <div className="flipper">
-          <div className="f c3">{logoLetters[2]}</div>
-          <div className="b contentbox instructions">
             <div className="padded">
-              <h2>Instructions</h2>
-              <p>Press [p] to pause, or [ESC] to abandon game.</p>
-              <p>Flip is a timed card memory game. Click the blue cards and try to find matching symbols.</p>
-              <p>Uncover two matching symbols at once to eliminate them.</p>
-              <p>Clear all cards before time runs out to win. Have fun FLIPing!</p>
+              <h2>Grid Size</h2>
+              {GRID_SIZES.map((grid) => (
+                <a
+                  key={grid.value}
+                  href="#"
+                  className={`play ${selectedGrid === grid.value ? 'selected' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onGridSelect(grid.value);
+                  }}
+                  data-level={grid.value}
+                >
+                  {grid.label}
+                </a>
+              ))}
+              <p className="info">Selected: {GRID_SIZES.find(g => g.value === selectedGrid)?.label || "None"}</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* P - Levels */}
+      {/* I - Settings */}
+      <div
+        className={`card left ${active === "I" ? "active" : ""}`}
+        onClick={() => setActive((p) => (p === "I" ? null : "I"))}
+        role="button"
+        aria-label="Game settings"
+      >
+        <div className="flipper">
+          <div className="f c3">{logoLetters[2]}</div>
+          <div className="b contentbox instructions">
+            <div className="padded">
+              <h2>Settings</h2>
+              
+              <div className="setting-group">
+                <label htmlFor="win-url">Win URL:</label>
+                <input
+                  id="win-url"
+                  type="url"
+                  value={winUrl}
+                  onChange={(e) => onWinUrlChange(e.target.value)}
+                  placeholder="https://example.com"
+                  className="setting-input"
+                />
+                <p className="setting-desc">URL to redirect to when you win</p>
+              </div>
+
+              <div className="setting-group">
+                <label htmlFor="game-time">Game Time (seconds):</label>
+                <input
+                  id="game-time"
+                  type="number"
+                  min="10"
+                  max="300"
+                  value={gameTime}
+                  onChange={(e) => onGameTimeChange(parseInt(e.target.value) || 60)}
+                  className="setting-input"
+                />
+                <p className="setting-desc">Time limit for the game</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* P - Play */}
       <div
         className={`card ${active === "P" ? "active" : ""}`}
         onClick={() => setActive((p) => (p === "P" ? null : "P"))}
         role="button"
-        aria-label="Choose level"
+        aria-label="Start game"
       >
         <div className="flipper">
           <div className="f c4">{logoLetters[3]}</div>
-          <div className="b contentbox instructions">
+          <div className="b contentbox levels">
             <div className="padded">
-              <h2>Welcome to Pepsi Electric Flip!</h2>
-              <p>Choose your grid size from the L tile or click here to start with 4x4.</p>
-              <a
-                href="#play"
-                className="playnow"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPlay(16); // Default 4x4
-                }}
-              >
-                Start 4x4 Game
-              </a>
+              <h2>Play Game</h2>
+              {selectedGrid ? (
+                <>
+                  <p>Grid: {GRID_SIZES.find(g => g.value === selectedGrid)?.label}</p>
+                  <p>Time: {gameTime}s</p>
+                  <a
+                    href="#play"
+                    className="playnow"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onPlay(selectedGrid);
+                    }}
+                  >
+                    Start Game
+                  </a>
+                </>
+              ) : (
+                <p>Please select a grid size from the L tile first.</p>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       <p className="info">
-        Pepsi Electric Flip - Experience the electric energy of memory gaming!
+        Flip should work best in Google Chrome, decent in Firefox, IE10 and Opera;
       </p>
     </div>
   );

@@ -5,6 +5,9 @@ import GameBoard from "./components/GameBoard.jsx";
 export default function App() {
   const [screen, setScreen] = useState("start"); // "start" | "playing" | "won" | "lost"
   const [level, setLevel] = useState(null);      // 8 | 18 | 32
+  const [selectedGrid, setSelectedGrid] = useState(16); // Default 4x4
+  const [winUrl, setWinUrl] = useState("");
+  const [gameTime, setGameTime] = useState(60); // Default 60 seconds
 
   const handleStart = useCallback((chosenLevel) => {
     setLevel(chosenLevel);
@@ -16,6 +19,11 @@ export default function App() {
     if (result === "abandoned") {
       setScreen("start");
       setLevel(null);
+    } else if (result === "won" && winUrl) {
+      // Redirect to win URL if provided
+      window.open(winUrl, '_blank');
+      setScreen(result);
+      setLevel(null);
     } else {
       setScreen(result);
       setLevel(null);
@@ -25,22 +33,50 @@ export default function App() {
   return (
     <div id="app">
       {screen === "start" && (
-        <Logo onPlay={handleStart} lastResult={null} />
+        <Logo 
+          onPlay={handleStart} 
+          lastResult={null}
+          selectedGrid={selectedGrid}
+          onGridSelect={setSelectedGrid}
+          winUrl={winUrl}
+          onWinUrlChange={setWinUrl}
+          gameTime={gameTime}
+          onGameTimeChange={setGameTime}
+        />
       )}
 
       {screen === "playing" && level && (
         <GameBoard
           level={level}
+          gameTime={gameTime}
           onEnd={handleEnd}
           onBackToMenu={() => setScreen("start")}
         />
       )}
 
       {screen === "won" && (
-        <Logo onPlay={handleStart} lastResult="nice" />
+        <Logo 
+          onPlay={handleStart} 
+          lastResult="nice"
+          selectedGrid={selectedGrid}
+          onGridSelect={setSelectedGrid}
+          winUrl={winUrl}
+          onWinUrlChange={setWinUrl}
+          gameTime={gameTime}
+          onGameTimeChange={setGameTime}
+        />
       )}
       {screen === "lost" && (
-        <Logo onPlay={handleStart} lastResult="fail" />
+        <Logo 
+          onPlay={handleStart} 
+          lastResult="fail"
+          selectedGrid={selectedGrid}
+          onGridSelect={setSelectedGrid}
+          winUrl={winUrl}
+          onWinUrlChange={setWinUrl}
+          gameTime={gameTime}
+          onGameTimeChange={setGameTime}
+        />
       )}
     </div>
   );
