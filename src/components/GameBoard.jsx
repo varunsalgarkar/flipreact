@@ -4,10 +4,10 @@ import gbStyles from "../styles/GameBoard.module.css";
 import { shuffle } from "../utils/shuffle.js";
 import { useLocalStats } from "../hooks/useLocalStats.js";
 
-const DIFFICULTY = {
-  8:  { key: "casual", mult: 4 },
-  18: { key: "medium", mult: 5 },
-  32: { key: "hard",   mult: 6 },
+const GRID_CONFIG = {
+  9:  { key: "3x3", mult: 3 },
+  16: { key: "4x4", mult: 4 },
+  25: { key: "5x5", mult: 5 },
 };
 
 export default function GameBoard({ level, onEnd, onBackToMenu }) {
@@ -19,16 +19,15 @@ export default function GameBoard({ level, onEnd, onBackToMenu }) {
   const [lost, setLost] = useState(false);
 
   const startTs = useRef(performance.now());
-  const timerMs = useMemo(() => 1000 * level * DIFFICULTY[level].mult, [level]);
-  const difficultyKey = DIFFICULTY[level].key;
+  const timerMs = useMemo(() => 1000 * level * GRID_CONFIG[level].mult, [level]);
+  const gridKey = GRID_CONFIG[level].key;
 
-  // Build symbols: mirror the original (00.., with special-case mapping for 30→10 and 31→21)
+  // Build symbols for the grid
   const symbols = useMemo(() => {
-    const base = Array.from({ length: level }, (_, i) => {
+    const pairsNeeded = level / 2;
+    const base = Array.from({ length: pairsNeeded }, (_, i) => {
       let code = i;
       if (code < 10) return `0${code}`;
-      if (code === 30) return "10";
-      if (code === 31) return "21";
       return `${code}`;
     });
     return shuffle([...base, ...base]);
@@ -77,11 +76,11 @@ export default function GameBoard({ level, onEnd, onBackToMenu }) {
   useEffect(() => {
     if (found.size && found.size === cards.length) {
       const elapsed = performance.now() - startTs.current;
-      recordBestTime(difficultyKey, elapsed);
+      recordBestTime(gridKey, elapsed);
       recordAbandoned(-1); // conclude
       onEnd("won");
     }
-  }, [found, cards.length, difficultyKey, recordBestTime, onEnd, recordAbandoned]);
+  }, [found, cards.length, gridKey, recordBestTime, onEnd, recordAbandoned]);
 
   const handleCardClick = useCallback(
     (idx) => {
@@ -114,7 +113,7 @@ export default function GameBoard({ level, onEnd, onBackToMenu }) {
   const cellPct = 100 / gridSide;
 
   return (
-    <div id="g" className={gbStyles[difficultyKey]} data-paused={paused ? 1 : 0}>
+    <div id="g" className={gbStyles[gridKey]} data-paused={paused ? 1 : 0}>
       {/* Timer bar with CSS animation (paused via inline style) */}
       <i
         className="timer"

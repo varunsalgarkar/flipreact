@@ -1,14 +1,16 @@
 /* base */
 :root { color-scheme: dark; }
 html, body, #root, #app { height: 100%; }
-body, html { margin:0; font: normal 0/0 Arial, Helvetica, sans-serif; background:#000; overflow:hidden; color:#fff;
+body, html { margin:0; font: normal 0/0 Arial, Helvetica, sans-serif; 
+  background: linear-gradient(135deg, #001122 0%, #003366 50%, #001122 100%); 
+  overflow:hidden; color:#fff;
   -webkit-touch-callout:none; -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
 }
 body, html, .flipper, .f, .b, #g { width:100%; height:100%; }
 
 /* reset (light) */
 a { text-decoration:none; color:#fff; display:block; font:bold 18px/75px 'Open Sans', sans-serif; text-transform:uppercase; text-align:center; padding:0; margin:0 1px; }
-a:hover{ color:#fff; background:rgba(255,255,255,.1); }
+a:hover{ color:#00d4ff; background:rgba(0, 212, 255, 0.1); }
 
 @font-face{
   font-family: "GeneralFoundicons"; font-weight:normal; font-style:normal;
@@ -41,45 +43,117 @@ a:hover{ color:#fff; background:rgba(255,255,255,.1); }
 
 /* GAME SCREEN */
 #g{ margin-top:4px; position:relative; }
-#g .timer{ width:0%; height:5px; position:absolute; top:0; background:#C0392B; z-index:1; }
+#g .timer{ width:0%; height:5px; position:absolute; top:0; 
+  background: linear-gradient(90deg, #00d4ff 0%, #ff6b35 100%); 
+  z-index:1; box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
 @keyframes timer { 100% { width:100%; } }
-.pause{ position:absolute; width:100%; height:100%; left:0; top:0; z-index:100; background:rgba(51, 51, 51, 0.78) }
-.pause::before{ content:'PAUSED'; width:100%; position:absolute; margin-top:-100px; top:50%; background:#C0392B; color:#fff; font:bold 80px/200px 'Open Sans';
-  display:block; text-align:center; }
+.pause{ position:absolute; width:100%; height:100%; left:0; top:0; z-index:100; 
+  background:rgba(0, 17, 34, 0.9); backdrop-filter: blur(5px); }
+.pause::before{ content:'PAUSED'; width:100%; position:absolute; margin-top:-100px; top:50%; 
+  background: linear-gradient(135deg, #00d4ff, #ff6b35); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  color:#00d4ff; font:bold 80px/200px 'Open Sans';
+  display:block; text-align:center; text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
 
 /* cards */
 #g .found{ display:inline-block; }
 .card{ display:inline-block; -webkit-perspective:1000; perspective:1000; }
-.card:not(.active):hover{ opacity:.8; }
+.card:not(.active):hover{ opacity:.8; transform: scale(1.02); }
 .card .b::before{
   content: attr(data-f);
   display:block; font:normal 100px/100px "GeneralFoundicons";
   position:absolute; top:50%; margin-top:-50px; width:100%; text-align:center;
+  color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 .flipper{ position:relative; transform-style: preserve-3d; }
-.f, .b{ position:absolute; top:0; left:0; box-shadow:inset 0 0 0 1px #333; backface-visibility:hidden; width:100%; height:100%; }
-.f{ background:#16A085; z-index:1; }
-.b{ background:#C0392B; opacity:0; }
+.f, .b{ position:absolute; top:0; left:0; 
+  box-shadow:inset 0 0 0 1px rgba(0, 212, 255, 0.3), 0 0 15px rgba(0, 212, 255, 0.1); 
+  backface-visibility:hidden; width:100%; height:100%; border-radius: 8px; }
+.f{ background: linear-gradient(135deg, #0066cc 0%, #004499 100%); z-index:1; 
+  border: 1px solid rgba(0, 212, 255, 0.3); }
+.b{ background: linear-gradient(135deg, #ff6b35 0%, #cc4400 100%); opacity:0; 
+  border: 1px solid rgba(255, 107, 53, 0.3); }
 .card.active .b{ z-index:2; opacity:1; }
-.card, .flipper, .logo .b{ transition:400ms; }
+.card, .flipper, .logo .b{ transition:400ms ease-in-out; }
 .card.active .flipper, .b{ transform: rotateY(180deg); }
-.logo .f, .card .b::before, .pause::before{ -webkit-text-stroke: 1px #fff; }
+.logo .f{ 
+  background: linear-gradient(135deg, #00d4ff, #ff6b35);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+.card .b::before, .pause::before{ -webkit-text-stroke: 1px rgba(0, 212, 255, 0.3); }
+
+/* Pepsi Electric color scheme for logo cards */
+.logo .c1 { 
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo .c2 { 
+  background: linear-gradient(135deg, #ff6b35, #cc4400);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo .c3 { 
+  background: linear-gradient(135deg, #00d4ff, #0066cc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo .c4 { 
+  background: linear-gradient(135deg, #ff6b35, #ff4400);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* Enhanced content boxes */
+.logo .contentbox {
+  background: rgba(0, 17, 34, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+}
+
+.logo .contentbox h2 {
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.logo .contentbox .play {
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  border-radius: 8px;
+  margin: 2px;
+  transition: all 0.3s ease;
+}
+
+.logo .contentbox .play:hover {
+  background: linear-gradient(135deg, #ff6b35, #cc4400);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+.logo .contentbox .playnow {
+  background: linear-gradient(135deg, #ff6b35, #cc4400);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.logo .contentbox .playnow:hover {
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
 
 /* Responsive */
 @media all and (max-width:1680px) and (min-width:640px){
   .card .b::before{ font-size:90px; }
-  #g.medium .card .b::before{ font-size:70px; }
-  #g.hard .card .b::before{ font-size:50px; }
+  #g.grid4x4 .card .b::before{ font-size:70px; }
+  #g.grid5x5 .card .b::before{ font-size:50px; }
 }
 @media all and (max-width:640px) and (min-width:470px){
   .card .b::before{ font-size:90px; }
-  #g.medium .card .b::before{ font-size:60px; }
-  #g.hard .card .b::before{ font-size:50px; }
+  #g.grid4x4 .card .b::before{ font-size:60px; }
+  #g.grid5x5 .card .b::before{ font-size:50px; }
 }
 @media all and (max-width:470px){
   .card .b::before{ font-size:60px; }
-  #g.medium .card .b::before{ font-size:35px; -webkit-text-stroke:0; }
-  #g.hard .card .b::before{ font-size:32px; -webkit-text-stroke:0; }
+  #g.grid4x4 .card .b::before{ font-size:35px; -webkit-text-stroke:0; }
+  #g.grid5x5 .card .b::before{ font-size:32px; -webkit-text-stroke:0; }
 }
 @media all and (max-width:640px){
   a{ line-height:50px; font-size:13px; }
