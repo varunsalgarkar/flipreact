@@ -86,7 +86,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
           <div className="f c2">{logoLetters[1]}</div>
           <div className="b contentbox levels">
             <div className="padded">
-              <h2>Grid Size</h2>
+              {/* <h2>Grid Size</h2> */}
               {GRID_SIZES.map((grid) => (
                 <a
                   key={grid.value}
@@ -126,7 +126,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
             onClick={(e) => e.stopPropagation()}
           >
             <div className="padded">
-              <h2>Settings</h2>
+              <h4>Settings</h4>
               
               <div className="setting-group">
                 <label htmlFor="win-url">Win URL:</label>
@@ -139,7 +139,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
                   className="setting-input"
                   onClick={(e) => e.stopPropagation()}
                 />
-                <p className="setting-desc">URL to redirect to when you win</p>
+                {/* <p className="setting-desc">URL to redirect to when you win</p> */}
               </div>
 
               <div className="setting-group">
@@ -154,7 +154,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
                   className="setting-input"
                   onClick={(e) => e.stopPropagation()}
                 />
-                <p className="setting-desc">Time limit for the game</p>
+                {/* <p className="setting-desc">Time limit for the game</p> */}
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
       </div>
 
       <p className="info">
-        Flip should work best in Google Chrome, decent in Firefox, IE10 and Opera;
+        ;
       </p>
     </div>
   );
