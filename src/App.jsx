@@ -20,15 +20,17 @@ export default function App() {
       setScreen("start");
       setLevel(null);
     } else if (result === "won" && winUrl) {
-      // Redirect to win URL if provided
-      window.open(winUrl, '_blank');
+      // Redirect to win URL if provided (after popup delay)
+      setTimeout(() => {
+        window.open(winUrl, '_blank');
+      }, 100); // Small delay to ensure popup has been removed
       setScreen(result);
       setLevel(null);
     } else {
       setScreen(result);
       setLevel(null);
     }
-  }, []);
+  }, [winUrl]);
 
   return (
     <div id="app">

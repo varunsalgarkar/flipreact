@@ -89,7 +89,22 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
       const elapsed = performance.now() - startTs.current;
       recordBestTime(gridKey, elapsed);
       recordAbandoned(-1); // conclude
-      onEnd("won");
+      
+      // Show congratulations popup for 5 seconds, then redirect and end game
+      const popup = document.createElement('div');
+      popup.className = 'congratulations-popup';
+      popup.innerHTML = `
+        <div class="popup-content">
+          <h2>Congratulations!</h2>
+          <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3cmNhcDE3ZGxwN3MwZml0ZnVmamtyYW00eDNrZjh4cXBoeDFydGk5MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BfOlhCJfYBQxW/giphy.gif" alt="Celebration" />
+        </div>
+      `;
+      document.body.appendChild(popup);
+      
+      setTimeout(() => {
+        document.body.removeChild(popup);
+        onEnd("won");
+      }, 5000);
     }
   }, [found, cards.length, gridKey, recordBestTime, onEnd, recordAbandoned]);
 
