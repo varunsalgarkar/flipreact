@@ -14,7 +14,7 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
   const { recordAbandoned, bumpFlip, recordBestTime } = useLocalStats();
   const [paused, setPaused] = useState(false);
   const [cards, setCards] = useState([]);
-  const [active, setActive] = useState([]); // indices of currently flipped (not yet matched)
+  const [active, setActive] = useState([]);
   const [found, setFound] = useState(new Set());
   const [lost, setLost] = useState(false);
 
@@ -25,45 +25,39 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
   // Build symbols for the grid
   const symbols = useMemo(() => {
     const pairsNeeded = level / 2;
-    // For odd numbers like 9, we need one extra single card
     const hasOddCard = level % 2 === 1;
+
     const base = Array.from({ length: Math.floor(pairsNeeded) }, (_, i) => {
-      let code = i;
-      if (code < 10) return `0${code}`;
-      return `${code}`;
+      let hex = i.toString(16).padStart(2, "0"); // "00".."1f"
+      if (hex === "1e") hex = "10"; // map 30 → f010
+      if (hex === "1f") hex = "21"; // map 31 → f021
+      return `f0${hex}`;
     });
-    
+
     let allCards = [...base, ...base]; // pairs
-    
-    // Add one extra card for odd grids
+
     if (hasOddCard) {
-      const extraCode = base.length < 10 ? `0${base.length}` : `${base.length}`;
-      allCards.push(extraCode);
+      let extra = base.length.toString(16).padStart(2, "0");
+      allCards.push(`f0${extra}`);
     }
-    
+
     return shuffle(allCards);
   }, [level]);
 
   // Initialize cards once
   useEffect(() => {
-    recordAbandoned(+1); // game starts → count as abandoned until conclusion
-    setCards(
-      symbols.map((code) => ({
-        code, // string used by CSS ::before via data-f
-      }))
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [symbols]);
+    recordAbandoned(+1); // mark game started
+    setCards(symbols.map((code) => ({ code })));
+  }, [symbols, recordAbandoned]);
 
-  // Keyboard handlers: pause [P] and abandon [ESC]
+  // Keyboard handlers
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "p" || e.key === "P") {
+      if (e.key.toLowerCase() === "p") {
         setPaused((p) => !p);
       } else if (e.key === "Escape") {
-        // Abandon
         setPaused(false);
-        recordAbandoned(-1); // remove “abandoned” since user left to menu
+        recordAbandoned(-1);
         onEnd("abandoned");
       }
     };
@@ -71,13 +65,12 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
     return () => window.removeEventListener("keyup", onKey);
   }, [onEnd, recordAbandoned]);
 
-  // Timer-end → lost
+  // Timer
   useEffect(() => {
     if (paused) return;
-    // Rely on CSS animation for the visual bar; JS timeout to trigger fail
     const id = setTimeout(() => {
       setLost(true);
-      recordAbandoned(-1); // not abandoned anymore—game concluded
+      recordAbandoned(-1);
       onEnd("lost");
     }, timerMs);
     return () => clearTimeout(id);
@@ -88,11 +81,11 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
     if (found.size && found.size === cards.length) {
       const elapsed = performance.now() - startTs.current;
       recordBestTime(gridKey, elapsed);
-      recordAbandoned(-1); // conclude
-      
-      // Show congratulations popup for 5 seconds, then redirect and end game
-      const popup = document.createElement('div');
-      popup.className = 'congratulations-popup';
+      recordAbandoned(-1);
+
+      // Show popup then finish
+      const popup = document.createElement("div");
+      popup.className = "congratulations-popup";
       popup.innerHTML = `
         <div class="popup-content">
           <h2>Congratulations!</h2>
@@ -100,7 +93,7 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
         </div>
       `;
       document.body.appendChild(popup);
-      
+
       setTimeout(() => {
         document.body.removeChild(popup);
         onEnd("won");
@@ -115,7 +108,6 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
       const nextActive = [...active, idx];
       setActive(nextActive);
 
-      // When two are active, evaluate after 401ms (match original delay)
       if (nextActive.length === 2) {
         const [a, b] = nextActive;
         const isMatch = cards[a].code === cards[b].code;
@@ -140,7 +132,6 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
 
   return (
     <div id="g" className={gbStyles[gridKey]} data-paused={paused ? 1 : 0}>
-      {/* Timer bar with CSS animation (paused via inline style) */}
       <i
         className="timer"
         style={{
@@ -149,10 +140,8 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
         }}
       />
 
-      {/* Pause overlay */}
       {paused && <div className="pause" />}
 
-      {/* Grid of cards */}
       {cards.map((c, i) => {
         const isFlipped = active.includes(i) || found.has(i);
         return (
@@ -164,16 +153,19 @@ export default function GameBoard({ level, gameTime, onEnd, onBackToMenu }) {
             role="button"
             aria-label="flip card"
           >
-            <Card symbolCode={c.code} />
+            {/* ✅ Use the glyph hex string */}
+            <Card glyphHex={c.code} />
           </div>
         );
       })}
 
-      {/* Simple top-left “Back” affordance (optional) */}
-      <button className={gbStyles.backBtn} onClick={() => {
-        setPaused(false);
-        onBackToMenu();
-      }}>
+      <button
+        className={gbStyles.backBtn}
+        onClick={() => {
+          setPaused(false);
+          onBackToMenu();
+        }}
+      >
         ⟵ Menu (ESC to abandon)
       </button>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Logo from "./components/Logo.jsx";
 import GameBoard from "./components/GameBoard.jsx";
+import Starfield from "./components/Starfield.jsx";
 
 export default function App() {
   const [screen, setScreen] = useState("start"); // "start" | "playing" | "won" | "lost"
@@ -34,6 +35,7 @@ export default function App() {
 
   return (
     <div id="app">
+        <Starfield gradient />
       {screen === "start" && (
         <>
           <div className="game-title">

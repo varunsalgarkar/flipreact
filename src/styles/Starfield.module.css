@@ -1,0 +1,42 @@
+.starfield {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;              /* behind the game */
+  pointer-events: none;    /* never block clicks */
+}
+
+.withGradient {
+  /* matches your original radial night-sky gradient */
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  /* animation */
+  animation-name: animStar;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* The “second copy” of each layer is placed just below the first one (at +2000px).
+   As the animation translates upward, it creates a continuous loop. */
+.copy {
+  top: 2000px;
+}
+
+@keyframes animStar {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2000px); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .layer {
+    animation: none;
+  }
+}

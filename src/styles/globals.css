@@ -1,10 +1,11 @@
 /* ===== CSS VARIABLES FOR EASY CUSTOMIZATION ===== */
 :root {
   /* Colors */
-  --primary-color: #094cc1;
-  --primary-hover: rgba(9, 250, 242, 0.724);
+  /* --primary-color: #094cc1; */
+  --primary-color: #fff;
+  --primary-hover: rgba(5, 196, 249);
   --primary-selected: rgba(0, 0, 0, 0.3);
-  --background-color: #000000;
+  --background-color: 220 100% 2%;
   --button-border-end-end-radius: 5px;
   --text-color: #fff;
   --text-muted: rgba(255, 255, 255, 0.7);
