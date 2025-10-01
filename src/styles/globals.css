@@ -15,7 +15,8 @@
   /* Card Colors */
   --card-front: rgb(5, 196, 249);
   --card-back: #222;
-  /* --card-border: rgb(255, 255, 255); */
+  /* --card-border: rgb(0, 0, 0); */
+  --card-border: #222;
   
   /* Layout */
   --logo-size: min(90vw, 90vh, 450px);
@@ -230,7 +231,7 @@ h4{
   width: 100%; 
   padding: var(--spacing-xs); 
   background: #333; 
-  border: 1px solid #555; 
+  border: 1px solid #555555; 
   color: var(--text-color); 
   border-radius: 4px;
   font-size: var(--content-font-size);

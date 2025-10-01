@@ -23,7 +23,7 @@ export default function Logo({ onPlay, lastResult, selectedGrid, onGridSelect, w
 
   return (
     <div className="logo">
-      <p className="info">Click the P to get started.</p>
+      {/* <p className="info">Click the P to get started.</p> */}
 
       {/* F - Figures / Stats */}
       <div
