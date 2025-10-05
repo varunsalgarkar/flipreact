@@ -24,8 +24,8 @@
   
   /* Typography */
   --font-family: 'Open Sans', sans-serif;
-  --title-size: clamp(24px, 8vw, 48px);
-  --subtitle-size: clamp(12px, 3vw, 18px);
+  --title-size: clamp(20px, 6vw, 42px);
+  --subtitle-size: clamp(10px, 2.5vw, 16px);
   --logo-letter-size: clamp(65px, 15vw, 130px);
   --content-font-size: clamp(10px, 2vw, 12px);
   --link-font-size: clamp(14px, 3vw, 18px);
@@ -35,6 +35,15 @@
   --spacing-sm: clamp(8px, 2vw, 15px);
   --spacing-md: clamp(15px, 3vw, 25px);
   --spacing-lg: clamp(20px, 4vw, 40px);
+  
+  /* Title positioning */
+  --title-top-margin: clamp(10px, 3vh, 25px);
+  
+  /* Logo watermark */
+  --watermark-size: clamp(60px, 8vw, 120px);
+  --watermark-bottom: clamp(15px, 3vh, 30px);
+  --watermark-right: clamp(15px, 3vw, 30px);
+  --watermark-opacity: 0.3;
   
   /* Game Grid */
   --game-margin: clamp(2px, 0.5vw, 4px);
@@ -80,9 +89,8 @@ body, html, .flipper, .f, .b, #g { width: 100%; height: 100%; }
 /* ===== TITLE AND SUBTITLE ===== */
 .game-title {
   position: absolute;
-  top: var(--spacing-sm);
+  top: var(--title-top-margin);
   left: 50%;
-  top: 10%;
   transform: translateX(-50%);
   text-align: center;
   z-index: 10;
@@ -381,10 +389,7 @@ h4{
     --spacing-sm: 8px;
     --spacing-md: 15px;
     --spacing-lg: 20px;
-  }
-  
-  .game-title {
-    top: 5px;
+    --title-top-margin: clamp(8px, 2vh, 20px);
   }
   
   .logo {
@@ -415,15 +420,12 @@ h4{
 @media (max-width: 480px) {
   :root {
     --logo-size: min(98vw, 80vh, 300px);
-    --title-size: 20px;
-    --subtitle-size: 12px;
+    --title-size: clamp(16px, 4vw, 24px);
+    --subtitle-size: clamp(8px, 2vw, 12px);
     --logo-letter-size: 60px;
     --content-font-size: 10px;
     --link-font-size: 12px;
-  }
-  
-  .game-title {
-    top: 2px;
+    --title-top-margin: clamp(5px, 1.5vh, 15px);
   }
   
   .logo {
@@ -435,10 +437,7 @@ h4{
 @media (orientation: landscape) and (max-height: 600px) {
   :root {
     --logo-size: min(70vw, 85vh, 400px);
-  }
-  
-  .game-title {
-    top: 2px;
+    --title-top-margin: clamp(5px, 1vh, 12px);
   }
   
   .game-title h1 {
@@ -494,4 +493,41 @@ h4{
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== PEPSI LOGO WATERMARK ===== */
+.pepsi-watermark {
+  position: fixed;
+  bottom: var(--watermark-bottom);
+  right: var(--watermark-right);
+  width: var(--watermark-size);
+  height: var(--watermark-size);
+  opacity: var(--watermark-opacity);
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity var(--hover-duration) ease;
+}
+
+.pepsi-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.2);
+}
+
+/* Responsive adjustments for watermark */
+@media (max-width: 768px) {
+  :root {
+    --watermark-size: clamp(50px, 6vw, 80px);
+    --watermark-bottom: clamp(10px, 2vh, 20px);
+    --watermark-right: clamp(10px, 2vw, 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --watermark-size: clamp(40px, 5vw, 60px);
+    --watermark-bottom: clamp(8px, 1.5vh, 15px);
+    --watermark-right: clamp(8px, 1.5vw, 15px);
+  }
 }

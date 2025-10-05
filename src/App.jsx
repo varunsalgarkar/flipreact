@@ -42,6 +42,18 @@ export default function App() {
             <h1>Flip the Twin</h1>
             <h2>A CSR Initiative</h2>
           </div>
+         <div className="pepsi-watermark">
+           <img 
+             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             alt="Pepsi Logo" 
+           />
+         </div>
+         <div className="pepsi-watermark">
+           <img 
+             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             alt="Pepsi Logo" 
+           />
+         </div>
           <Logo 
             onPlay={handleStart} 
             lastResult={null}
@@ -88,6 +100,12 @@ export default function App() {
             <h1>Flip the Twin</h1>
             <h2>A CSR Initiative</h2>
           </div>
+         <div className="pepsi-watermark">
+           <img 
+             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             alt="Pepsi Logo" 
+           />
+         </div>
           <Logo 
             onPlay={handleStart} 
             lastResult="fail"
