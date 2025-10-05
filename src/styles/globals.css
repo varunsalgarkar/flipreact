@@ -40,10 +40,10 @@
   --title-top-margin: clamp(10px, 3vh, 25px);
   
   /* Logo watermark */
-  --watermark-size: clamp(60px, 8vw, 120px);
-  --watermark-bottom: clamp(15px, 3vh, 30px);
-  --watermark-right: clamp(15px, 3vw, 30px);
-  --watermark-opacity: 0.3;
+  --watermark-size: clamp(180px, 10vw, 130px);
+  --watermark-bottom: clamp(5px, 1vh, 25px);
+  --watermark-right: clamp(15px, 3vw, 25px);
+  --watermark-opacity: 0.9;
   
   /* Game Grid */
   --game-margin: clamp(2px, 0.5vw, 4px);
@@ -512,7 +512,7 @@ h4{
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: grayscale(100%) brightness(1.2);
+  /* filter: grayscale(100%) brightness(1.2); */
 }
 
 /* Responsive adjustments for watermark */

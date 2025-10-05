@@ -44,13 +44,13 @@ export default function App() {
           </div>
          <div className="pepsi-watermark">
            <img 
-             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             src="\pep_logo.png" 
              alt="Pepsi Logo" 
            />
          </div>
          <div className="pepsi-watermark">
            <img 
-             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             src="\pep_logo.png" 
              alt="Pepsi Logo" 
            />
          </div>
@@ -102,7 +102,7 @@ export default function App() {
           </div>
          <div className="pepsi-watermark">
            <img 
-             src="https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+             src="flip-react\public\pep_logo.png" 
              alt="Pepsi Logo" 
            />
          </div>
