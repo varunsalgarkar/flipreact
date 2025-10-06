@@ -48,7 +48,7 @@ Grid options:
 ```bash
 # Clone the repo
 git clone https://github.com/your-username/flip-match-react.git
-cd flip-match-react
+cd flipreact
 
 # Install dependencies
 npm install
