@@ -47,8 +47,8 @@ Grid options:
 ### Installation
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/flip-match-react.git
-cd flip-match-react
+git clone https://github.com/varunsalgarkar/flipreact.git
+cd flipreact
 
 # Install dependencies
 npm install
